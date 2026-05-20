@@ -6,36 +6,36 @@ const workRoot = path.resolve(root, "..");
 
 const tools = [
   {
-    title: "AdReplica",
-    shortName: "AdReplica",
+    title: "Ad Replica",
+    shortName: "Ad Replica",
     landing: "https://adreplica.pages.dev/",
     sourceDir: "AdReplica",
     description: "Campaign export, import, clone, media, identities, pixels, and catalogs for Ads Manager.",
   },
   {
-    title: "AutoRulesManager",
-    shortName: "AutoRules",
+    title: "Auto Rules Manager",
+    shortName: "Auto Rules",
     landing: "https://autorulesmanager.pages.dev/",
     sourceDir: "AutoRulesManager",
     description: "Automated rules export, import, deletion, status switching, and currency-safe threshold migration.",
   },
   {
-    title: "ColumnsManager",
+    title: "Columns Manager",
     shortName: "Columns",
     landing: "https://columnsmanager.pages.dev/",
     sourceDir: "ColumnsManager",
     description: "Export and import Ads Manager column presets between ad accounts.",
   },
   {
-    title: "FPBlockedManager",
-    shortName: "FPBlocked",
+    title: "FP Blocked Manager",
+    shortName: "FP Blocked",
     landing: "https://fpblockedmanager.pages.dev/",
     sourceDir: "FPBlockedManager",
     description: "Export, import, block, and unblock Facebook Page blocked users by user ID.",
   },
   {
-    title: "FPContentManager",
-    shortName: "FPContent",
+    title: "FP Content Manager",
+    shortName: "FP Content",
     landing: "https://fpcontentmanager.pages.dev/",
     sourceDir: "FPContentManager",
     description: "Export Page posts/photos/videos, import text posts, and clean Page content with explicit confirmation.",
@@ -130,7 +130,16 @@ const page = `<!doctype html>
     h1 {
       margin: 0;
       color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
       font: 900 42px/1 Trebuchet MS, Verdana, sans-serif;
+    }
+    .logo {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border-radius: 8px;
     }
     .meta { color: var(--muted); margin: 8px 0 0; }
     .top a, .links a { color: var(--gold); text-decoration: none; }
@@ -188,6 +197,7 @@ const page = `<!doctype html>
     @media (max-width: 760px) {
       header { display: block; }
       h1 { font-size: 34px; }
+      .logo { width: 34px; height: 34px; }
       .grid { grid-template-columns: 1fr; }
       .tool-head { display: block; }
       .build { display: block; margin-top: 6px; }
@@ -198,7 +208,7 @@ const page = `<!doctype html>
   <main>
     <header>
       <div>
-        <h1>Yellow Web Tools</h1>
+        <h1><img class="logo" src="/favicon.svg" alt="" />Yellow Web Tools</h1>
         <p class="meta">Draggable bookmarklets for Facebook ads.</p>
       </div>
       <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
@@ -206,7 +216,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 200526b4. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
+    <footer>Hub build 200526b6. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
   </main>
 </body>
 </html>
