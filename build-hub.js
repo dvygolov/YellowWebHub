@@ -82,7 +82,7 @@ const cards = tools.map(readToolMeta).map((tool) => `      <article>
         <p>${htmlEscape(tool.description)}</p>
         <div class="links">
           <a class="link" href="${htmlEscape(tool.landing)}" target="_blank" rel="noopener">Landing</a>
-          <a class="bookmarklet" href="${tool.bookmarklet}" title="Drag this link to the bookmarks bar">${htmlEscape(tool.shortName)}</a>
+          <a class="bookmarklet" href="${tool.bookmarklet}" data-label="${htmlEscape(tool.shortName)}" title="Click to copy or drag this link to the bookmarks bar">${htmlEscape(tool.shortName)}</a>
         </div>
       </article>`).join("\n");
 
@@ -215,8 +215,48 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 200526b7. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
+    <footer>Hub build 200526b8. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
+  <script>
+    (() => {
+      const copyText = async (text) => {
+        if (navigator.clipboard && window.isSecureContext) {
+          try {
+            await navigator.clipboard.writeText(text);
+            return;
+          } catch (error) {
+            console.warn("Clipboard API failed, trying textarea fallback.", error);
+          }
+        }
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.cssText = "position:fixed;left:-9999px;top:0";
+        document.body.appendChild(area);
+        area.select();
+        if (!document.execCommand("copy")) {
+          throw new Error("Copy command was rejected.");
+        }
+        area.remove();
+      };
+
+      document.querySelectorAll(".bookmarklet").forEach((link) => {
+        link.addEventListener("click", async (event) => {
+          event.preventDefault();
+          const label = link.dataset.label || link.textContent;
+          try {
+            await copyText(link.href);
+            link.textContent = "Copied";
+            window.setTimeout(() => { link.textContent = label; }, 1400);
+          } catch (error) {
+            link.textContent = "Copy failed";
+            window.setTimeout(() => { link.textContent = label; }, 1800);
+            console.error("Bookmarklet copy failed.", error);
+          }
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
 `;
