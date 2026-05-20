@@ -190,14 +190,14 @@ const page = `<!doctype html>
     <header>
       <div>
         <h1>Yellow Web Tools</h1>
-        <p class="meta">Landing pages and draggable bookmarklet loaders.</p>
+        <p class="meta">Draggable bookmarklets for Facebook ads.</p>
       </div>
       <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
     </header>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 200526b2. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
+    <footer>Hub build 200526b3. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
   </main>
 </body>
 </html>
