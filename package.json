@@ -1,11 +1,11 @@
 {
   "name": "yellowweb-hub",
-  "version": "200526b1",
+  "version": "200526b2",
   "private": true,
   "description": "Yellow Web bookmarklet tools hub for Cloudflare Pages.",
   "scripts": {
-    "check": "node --check noop-check.js",
-    "build": "node noop-check.js",
+    "check": "node --check noop-check.js && node --check build-hub.js",
+    "build": "node build-hub.js",
     "deploy": "npx wrangler pages deploy ./dist --project-name=yellowweb --branch=main --commit-dirty=true"
   },
   "author": "Yellow Web",
