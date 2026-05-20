@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Yellow Web Tools</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --panel: #1f1f1f;
+      --ink: #f8f0c8;
+      --muted: #b7ad89;
+      --gold: #ffd000;
+      --line: rgba(255, 208, 0, 0.32);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #121212;
+      color: var(--ink);
+      font: 15px/1.55 Verdana, sans-serif;
+    }
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+    }
+    h1 {
+      margin: 0;
+      color: var(--gold);
+      font: 900 42px/1 Trebuchet MS, Verdana, sans-serif;
+    }
+    .meta { color: var(--muted); margin: 8px 0 0; }
+    .top a, .links a { color: var(--gold); text-decoration: none; }
+    .top a:hover, .links a:hover { text-decoration: underline; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    article {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+    h2 {
+      margin: 0;
+      color: var(--gold);
+      font: 900 24px/1.1 Trebuchet MS, Verdana, sans-serif;
+    }
+    p { margin: 0; color: #d8cfaa; }
+    .links {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .links a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: rgba(255, 208, 0, 0.07);
+      font-weight: 700;
+    }
+    footer { margin-top: 28px; color: var(--muted); }
+    @media (max-width: 760px) {
+      header { display: block; }
+      h1 { font-size: 34px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Yellow Web Tools</h1>
+        <p class="meta">Bookmarklet loaders and browser-side Facebook utilities.</p>
+      </div>
+      <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
+    </header>
+    <section class="grid">
+      <article>
+        <h2>AdReplica</h2>
+        <p>Campaign export, import, clone, media, identities, pixels, and catalogs for Ads Manager.</p>
+        <div class="links">
+          <a href="https://adreplica.pages.dev/">Landing</a>
+          <a href="https://adreplica.pages.dev/adreplica/latest/manifest.html">Manifest</a>
+          <a href="https://adreplica.pages.dev/adreplica/latest/payload.js">Payload</a>
+        </div>
+      </article>
+      <article>
+        <h2>AutoRulesManager</h2>
+        <p>Automated rules export, import, deletion, status switching, and currency-safe threshold migration.</p>
+        <div class="links">
+          <a href="https://autorulesmanager.pages.dev/">Landing</a>
+          <a href="https://autorulesmanager.pages.dev/autorules/latest/manifest.html">Manifest</a>
+          <a href="https://autorulesmanager.pages.dev/autorules/latest/payload.js">Payload</a>
+        </div>
+      </article>
+      <article>
+        <h2>ColumnsManager</h2>
+        <p>Export and import Ads Manager column presets between ad accounts.</p>
+        <div class="links">
+          <a href="https://columnsmanager.pages.dev/">Landing</a>
+          <a href="https://columnsmanager.pages.dev/columns/latest/manifest.html">Manifest</a>
+          <a href="https://columnsmanager.pages.dev/columns/latest/payload.js">Payload</a>
+        </div>
+      </article>
+      <article>
+        <h2>FPBlockedManager</h2>
+        <p>Export, import, block, and unblock Facebook Page blocked users by user ID.</p>
+        <div class="links">
+          <a href="https://fpblockedmanager.pages.dev/">Landing</a>
+          <a href="https://fpblockedmanager.pages.dev/fpblocked/latest/manifest.html">Manifest</a>
+          <a href="https://fpblockedmanager.pages.dev/fpblocked/latest/payload.js">Payload</a>
+        </div>
+      </article>
+      <article>
+        <h2>FPContentManager</h2>
+        <p>Export Page posts/photos/videos, import text posts, and clean Page content with explicit confirmation.</p>
+        <div class="links">
+          <a href="https://fpcontentmanager.pages.dev/">Landing</a>
+          <a href="https://fpcontentmanager.pages.dev/fpcontent/latest/manifest.html">Manifest</a>
+          <a href="https://fpcontentmanager.pages.dev/fpcontent/latest/payload.js">Payload</a>
+        </div>
+      </article>
+    </section>
+    <footer>Updated build 200526b1. Each landing contains the current bookmarklet loader button.</footer>
+  </main>
+</body>
+</html>
