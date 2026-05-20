@@ -48,6 +48,13 @@ const htmlEscape = (value) => String(value)
   .replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;");
 
+const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#121212"/>
+  <path d="M12 14h40v6H12zM12 44h40v6H12z" fill="#ffd000"/>
+  <path d="M15 22h8l6 11 6-11h8L32 40h-6l-4-7-4 7h-6l10-18zm31 0h7L43 40h-7l3-5-8-13h7l4 7 4-7z" fill="#ffd000"/>
+</svg>
+`;
+
 function readToolMeta(tool) {
   const indexPath = path.join(workRoot, tool.sourceDir, "dist", "index.html");
   const html = fs.readFileSync(indexPath, "utf8");
@@ -87,6 +94,8 @@ const page = `<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex,nofollow" />
   <title>Yellow Web Tools</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#121212" />
   <style>
     :root {
       --bg: #121212;
@@ -197,10 +206,11 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 200526b3. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
+    <footer>Hub build 200526b4. Drag a yellow bookmarklet button to the bookmarks bar, or open the landing page for details.</footer>
   </main>
 </body>
 </html>
 `;
 
 fs.writeFileSync(path.join(root, "dist", "index.html"), page);
+fs.writeFileSync(path.join(root, "dist", "favicon.svg"), faviconSvg);
