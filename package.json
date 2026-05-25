@@ -1,6 +1,6 @@
 {
   "name": "yellowweb-hub",
-  "version": "250526b1",
+  "version": "250526b2",
   "private": true,
   "description": "Yellow Web bookmarklet tools hub for Cloudflare Pages.",
   "scripts": {

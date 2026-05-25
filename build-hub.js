@@ -215,7 +215,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 250526b1. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 250526b2. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
