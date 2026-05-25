@@ -24,21 +24,21 @@ const tools = [
     shortName: "Columns",
     landing: "https://columnsmanager.pages.dev/",
     sourceDir: "ColumnsManager",
-    description: "Export and import Ads Manager column presets between ad accounts.",
+    description: "Export Ads Manager column presets into one JSON or separate files, and import presets into an ad account.",
   },
   {
     title: "FP Blocked Manager",
     shortName: "FP Blocked",
     landing: "https://fpblockedmanager.pages.dev/",
     sourceDir: "FPBlockedManager",
-    description: "Export, import, block, and unblock Facebook Page blocked users by user ID.",
+    description: "Export and import Facebook Page blocked users as TXT, one user ID per line.",
   },
   {
     title: "FP Content Manager",
     shortName: "FP Content",
     landing: "https://fpcontentmanager.pages.dev/",
     sourceDir: "FPContentManager",
-    description: "Export Page posts/photos/videos, import text posts, and clean Page content with explicit confirmation.",
+    description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
   },
 ];
 
@@ -215,7 +215,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 250526b2. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 250526b3. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
