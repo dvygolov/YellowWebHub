@@ -46,12 +46,12 @@ const tools = [
     description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
   },
   {
-    title: "FB Ivan Auto Scroll",
-    shortName: "FB Ivan",
+    title: "FB Auto Scroll",
+    shortName: "FB Scroll",
     landing: "https://fbivan.pages.dev/",
     source: "https://github.com/dvygolov/FBIvan",
     sourceDir: "FBIvan",
-    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, session limits, and embedded loader fallback.",
+    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, and session limits. Original script by fb_ivan.",
   },
 ];
 
@@ -229,7 +229,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 260526b1. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 260526b2. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
