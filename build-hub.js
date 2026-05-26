@@ -45,6 +45,14 @@ const tools = [
     sourceDir: "FPContentManager",
     description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
   },
+  {
+    title: "FB Ivan Auto Scroll",
+    shortName: "FB Ivan",
+    landing: "https://fbivan.pages.dev/",
+    source: "https://github.com/dvygolov/FBIvan",
+    sourceDir: "FBIvan",
+    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, session limits, and embedded loader fallback.",
+  },
 ];
 
 const htmlEscape = (value) => String(value)
@@ -221,7 +229,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 250526b4. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 260526b1. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
