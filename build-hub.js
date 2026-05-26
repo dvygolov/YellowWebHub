@@ -9,6 +9,7 @@ const tools = [
     title: "Ad Replica",
     shortName: "Ad Replica",
     landing: "https://adreplica.pages.dev/",
+    source: "https://github.com/dvygolov/AdReplica",
     sourceDir: "AdReplica",
     description: "Campaign export, import, clone, media, identities, pixels, and catalogs for Ads Manager.",
   },
@@ -16,6 +17,7 @@ const tools = [
     title: "Auto Rules Manager",
     shortName: "Auto Rules",
     landing: "https://autorulesmanager.pages.dev/",
+    source: "https://github.com/dvygolov/AutoRulesManager",
     sourceDir: "AutoRulesManager",
     description: "Automated rules export, import, deletion, status switching, and currency-safe threshold migration.",
   },
@@ -23,6 +25,7 @@ const tools = [
     title: "Columns Manager",
     shortName: "Columns",
     landing: "https://columnsmanager.pages.dev/",
+    source: "https://github.com/dvygolov/ColumnsManager",
     sourceDir: "ColumnsManager",
     description: "Export Ads Manager column presets into one JSON or separate files, and import presets into an ad account.",
   },
@@ -30,6 +33,7 @@ const tools = [
     title: "FP Blocked Manager",
     shortName: "FP Blocked",
     landing: "https://fpblockedmanager.pages.dev/",
+    source: "https://github.com/dvygolov/FPBlockedManager",
     sourceDir: "FPBlockedManager",
     description: "Export and import Facebook Page blocked users as TXT, one user ID per line.",
   },
@@ -37,6 +41,7 @@ const tools = [
     title: "FP Content Manager",
     shortName: "FP Content",
     landing: "https://fpcontentmanager.pages.dev/",
+    source: "https://github.com/dvygolov/FPContentManager",
     sourceDir: "FPContentManager",
     description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
   },
@@ -82,6 +87,7 @@ const cards = tools.map(readToolMeta).map((tool) => `      <article>
         <p>${htmlEscape(tool.description)}</p>
         <div class="links">
           <a class="link" href="${htmlEscape(tool.landing)}" target="_blank" rel="noopener">Landing</a>
+          <a class="link source" href="${htmlEscape(tool.source)}" target="_blank" rel="noopener">GitHub source</a>
           <a class="bookmarklet" href="${tool.bookmarklet}" data-label="${htmlEscape(tool.shortName)}" title="Click to copy or drag this link to the bookmarks bar">${htmlEscape(tool.shortName)}</a>
         </div>
       </article>`).join("\n");
@@ -210,12 +216,12 @@ const page = `<!doctype html>
         <h1><img class="logo" src="/favicon.svg" alt="" />Yellow Web Tools</h1>
         <p class="meta">Draggable bookmarklets for Facebook ads.</p>
       </div>
-      <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
+      <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://github.com/dvygolov/YellowWebHub" target="_blank" rel="noopener">Hub source</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
     </header>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 250526b3. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 250526b4. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
