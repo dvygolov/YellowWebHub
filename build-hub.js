@@ -48,10 +48,10 @@ const tools = [
   {
     title: "FB Auto Scroll",
     shortName: "FB Scroll",
-    landing: "https://fbivan.pages.dev/",
+    landing: "https://fbautoscroll.pages.dev/",
     source: "https://github.com/dvygolov/FBIvan",
     sourceDir: "FBIvan",
-    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, and session limits. Original script by fb_ivan.",
+    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, and session limits. Original script by fb_ivan: https://t.me/fb_ivan.",
   },
 ];
 
