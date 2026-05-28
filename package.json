@@ -1,9 +1,11 @@
 {
   "name": "yellowweb-hub",
-  "version": "280526b1",
+  "version": "280526b2",
   "private": true,
   "description": "Yellow Web bookmarklet tools hub for Cloudflare Pages.",
   "scripts": {
+    "bump:build": "node scripts/bump-build-version.cjs",
+    "prebuild": "npm run bump:build",
     "check": "node --check noop-check.js && node --check build-hub.js",
     "build": "node build-hub.js",
     "deploy": "npx wrangler pages deploy ./dist --project-name=yellowweb --branch=main --commit-dirty=true"
