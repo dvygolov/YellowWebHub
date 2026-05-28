@@ -27,7 +27,7 @@ const tools = [
     landing: "https://columnsmanager.pages.dev/",
     source: "https://github.com/dvygolov/ColumnsManager",
     sourceDir: "ColumnsManager",
-    description: "Export Ads Manager column presets into one JSON or separate files, and import presets into an ad account.",
+    description: "Export Ads Manager column presets into one JSON or separate files, and import presets into one or many ad accounts.",
   },
   {
     title: "FP Blocked Manager",
@@ -229,7 +229,7 @@ const page = `<!doctype html>
     <section class="grid">
 ${cards}
     </section>
-    <footer>Hub build 260526b2. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <footer>Hub build 280526b1. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
