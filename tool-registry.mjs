@@ -51,12 +51,12 @@ export const tools = [
   },
   {
     id: "fbautoscroll",
-    type: "static",
+    type: "live",
     title: "FB Auto Scroll",
     shortName: "FB Scroll",
     landingUrl: "https://fbautoscroll.pages.dev/",
     sourceUrl: "https://github.com/dvygolov/FBIvan",
     description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, and session limits. Original script by fb_ivan: https://t.me/fb_ivan.",
-    bookmarkletHref: "",
+    toolMetaUrl: "https://fbautoscroll.pages.dev/fbautoscroll/latest/tool-meta.json",
   },
 ];
