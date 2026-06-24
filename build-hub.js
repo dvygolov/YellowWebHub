@@ -1,59 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const { pathToFileURL } = require("url");
 
 const root = __dirname;
-const workRoot = path.resolve(root, "..");
-
-const tools = [
-  {
-    title: "Ad Replica",
-    shortName: "Ad Replica",
-    landing: "https://adreplica.pages.dev/",
-    source: "https://github.com/dvygolov/AdReplica",
-    sourceDir: "AdReplica",
-    description: "Campaign export, import, clone, media, identities, pixels, and catalogs for Ads Manager.",
-  },
-  {
-    title: "Auto Rules Manager",
-    shortName: "Auto Rules",
-    landing: "https://autorulesmanager.pages.dev/",
-    source: "https://github.com/dvygolov/AutoRulesManager",
-    sourceDir: "AutoRulesManager",
-    description: "Automated rules export, import, deletion, status switching, and currency-safe threshold migration.",
-  },
-  {
-    title: "Columns Manager",
-    shortName: "Columns",
-    landing: "https://columnsmanager.pages.dev/",
-    source: "https://github.com/dvygolov/ColumnsManager",
-    sourceDir: "ColumnsManager",
-    description: "Export Ads Manager column presets into one JSON or separate files, and import presets into one or many ad accounts.",
-  },
-  {
-    title: "FP Blocked Manager",
-    shortName: "FP Blocked",
-    landing: "https://fpblockedmanager.pages.dev/",
-    source: "https://github.com/dvygolov/FPBlockedManager",
-    sourceDir: "FPBlockedManager",
-    description: "Export and import Facebook Page blocked users as TXT, one user ID per line.",
-  },
-  {
-    title: "FP Content Manager",
-    shortName: "FP Content",
-    landing: "https://fpcontentmanager.pages.dev/",
-    source: "https://github.com/dvygolov/FPContentManager",
-    sourceDir: "FPContentManager",
-    description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
-  },
-  {
-    title: "FB Auto Scroll",
-    shortName: "FB Scroll",
-    landing: "https://fbautoscroll.pages.dev/",
-    source: "https://github.com/dvygolov/FBIvan",
-    sourceDir: "FBIvan",
-    description: "Facebook Reels and Feed auto-scroll panel with modes, breaks, night pause, and session limits. Original script by fb_ivan: https://t.me/fb_ivan.",
-  },
-];
+const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
 
 const htmlEscape = (value) => String(value)
   .replace(/&/g, "&amp;")
@@ -67,40 +17,14 @@ const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 </svg>
 `;
 
-function readToolMeta(tool) {
-  const indexPath = path.join(workRoot, tool.sourceDir, "dist", "index.html");
-  const html = fs.readFileSync(indexPath, "utf8");
-  const bookmarklet = html.match(/<a class="bookmarklet" id="bookmarkletLink" href="([^"]+)"/);
-  const build = html.match(/<div class="eyebrow">[^<]* build ([^<]+)<\/div>/);
-
-  if (!bookmarklet) {
-    throw new Error(`Could not find bookmarklet link in ${indexPath}`);
-  }
-  if (!build) {
-    throw new Error(`Could not find build label in ${indexPath}`);
-  }
-
-  return {
-    ...tool,
-    bookmarklet: bookmarklet[1],
-    build: build[1],
-  };
+async function loadTools() {
+  const moduleUrl = pathToFileURL(path.join(root, "tool-registry.mjs")).href;
+  const registry = await import(moduleUrl);
+  return registry.tools;
 }
 
-const cards = tools.map(readToolMeta).map((tool) => `      <article>
-        <div class="tool-head">
-          <h2>${htmlEscape(tool.title)}</h2>
-          <span class="build">build ${htmlEscape(tool.build)}</span>
-        </div>
-        <p>${htmlEscape(tool.description)}</p>
-        <div class="links">
-          <a class="link" href="${htmlEscape(tool.landing)}" target="_blank" rel="noopener">Landing</a>
-          <a class="link source" href="${htmlEscape(tool.source)}" target="_blank" rel="noopener">GitHub source</a>
-          <a class="bookmarklet" href="${tool.bookmarklet}" data-label="${htmlEscape(tool.shortName)}" title="Click to copy or drag this link to the bookmarks bar">${htmlEscape(tool.shortName)}</a>
-        </div>
-      </article>`).join("\n");
-
-const page = `<!doctype html>
+function buildPage(tools) {
+  return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -117,6 +41,7 @@ const page = `<!doctype html>
       --muted: #b7ad89;
       --gold: #ffd000;
       --line: rgba(255, 208, 0, 0.32);
+      --danger: #ff8989;
     }
     * { box-sizing: border-box; }
     body {
@@ -169,6 +94,7 @@ const page = `<!doctype html>
       padding: 18px;
       display: grid;
       gap: 14px;
+      min-height: 220px;
     }
     .tool-head {
       display: flex;
@@ -186,6 +112,12 @@ const page = `<!doctype html>
       white-space: nowrap;
       font: 700 12px/1.2 Verdana, sans-serif;
     }
+    .status {
+      font: 700 12px/1.2 Verdana, sans-serif;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .status.error { color: var(--danger); }
     p { margin: 0; color: #d8cfaa; }
     .links {
       display: flex;
@@ -193,7 +125,7 @@ const page = `<!doctype html>
       flex-wrap: wrap;
       align-items: center;
     }
-    .links a {
+    .links a, .links span {
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 8px 10px;
@@ -205,6 +137,16 @@ const page = `<!doctype html>
       border-color: var(--gold);
       color: #111;
       cursor: grab;
+    }
+    .links .bookmarklet.disabled {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      cursor: default;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
     }
     footer { margin-top: 28px; color: var(--muted); }
     @media (max-width: 760px) {
@@ -226,54 +168,132 @@ const page = `<!doctype html>
       </div>
       <div class="top"><a href="https://yellowweb.top" target="_blank" rel="noopener">yellowweb.top</a> · <a href="https://github.com/dvygolov/YellowWebHub" target="_blank" rel="noopener">Hub source</a> · <a href="https://t.me/yellow_web" target="_blank" rel="noopener">Telegram</a></div>
     </header>
-    <section class="grid">
-${cards}
-    </section>
-    <footer>Hub build 280526b3. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
+    <section class="grid" id="toolGrid"></section>
+    <footer>Hub build ${htmlEscape(pkg.version)}. Click a yellow bookmarklet to copy it, or drag it to the bookmarks bar.</footer>
   </main>
   <script>
     (() => {
-      const copyText = async (text) => {
-        if (navigator.clipboard && window.isSecureContext) {
-          try {
-            await navigator.clipboard.writeText(text);
-            return;
-          } catch (error) {
-            console.warn("Clipboard API failed, trying textarea fallback.", error);
-          }
-        }
-        const area = document.createElement("textarea");
-        area.value = text;
-        area.setAttribute("readonly", "");
-        area.style.cssText = "position:fixed;left:-9999px;top:0";
-        document.body.appendChild(area);
-        area.select();
-        if (!document.execCommand("copy")) {
-          throw new Error("Copy command was rejected.");
-        }
-        area.remove();
-      };
+      const registry = ${JSON.stringify(tools)};
+      const grid = document.getElementById("toolGrid");
 
-      document.querySelectorAll(".bookmarklet").forEach((link) => {
-        link.addEventListener("click", async (event) => {
-          event.preventDefault();
-          const label = link.dataset.label || link.textContent;
-          try {
-            await copyText(link.href);
-            link.textContent = "Copied";
-            window.setTimeout(() => { link.textContent = label; }, 1400);
-          } catch (error) {
-            link.textContent = "Copy failed";
-            window.setTimeout(() => { link.textContent = label; }, 1800);
-            console.error("Bookmarklet copy failed.", error);
-          }
+      const escapeHtml = (value) => String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+      const initialTools = registry.map((tool) => ({
+        ...tool,
+        build: tool.type === "static" ? "static" : "loading",
+        bookmarkletHref: tool.bookmarkletHref || "",
+        status: tool.type === "static" ? "static" : "loading",
+      }));
+
+      function render(tools) {
+        grid.innerHTML = tools.map((tool) => {
+          const statusClass = tool.status === "error" ? "status error" : "status";
+          const bookmarklet = tool.bookmarkletHref
+            ? '<a class="bookmarklet" href="' + escapeHtml(tool.bookmarkletHref) + '" data-label="' + escapeHtml(tool.shortName) + '">' + escapeHtml(tool.shortName) + "</a>"
+            : '<span class="bookmarklet disabled">Unavailable</span>';
+          return '<article>' +
+            '<div class="tool-head">' +
+              '<h2>' + escapeHtml(tool.title) + '</h2>' +
+              '<span class="build">build ' + escapeHtml(tool.build || "n/a") + '</span>' +
+            '</div>' +
+            '<div class="' + statusClass + '">' + escapeHtml(tool.status || "unknown") + '</div>' +
+            '<p>' + escapeHtml(tool.description) + '</p>' +
+            '<div class="links">' +
+              '<a class="link" href="' + escapeHtml(tool.landingUrl) + '" target="_blank" rel="noopener">Landing</a>' +
+              '<a class="link source" href="' + escapeHtml(tool.sourceUrl) + '" target="_blank" rel="noopener">GitHub source</a>' +
+              bookmarklet +
+            '</div>' +
+            '<div class="hint">' + escapeHtml(tool.status === "error" ? (tool.error || "Live metadata unavailable.") : "Live build and bookmarklet come from the deployed tool.") + '</div>' +
+          '</article>';
+        }).join("");
+
+        grid.querySelectorAll(".bookmarklet").forEach((link) => {
+          link.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const label = link.dataset.label || link.textContent;
+            try {
+              if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(link.href);
+              } else {
+                const area = document.createElement("textarea");
+                area.value = link.href;
+                area.setAttribute("readonly", "");
+                area.style.cssText = "position:fixed;left:-9999px;top:0";
+                document.body.appendChild(area);
+                area.select();
+                if (!document.execCommand("copy")) {
+                  throw new Error("Copy command was rejected.");
+                }
+                area.remove();
+              }
+              link.textContent = "Copied";
+              window.setTimeout(() => { link.textContent = label; }, 1400);
+            } catch (error) {
+              link.textContent = "Copy failed";
+              window.setTimeout(() => { link.textContent = label; }, 1800);
+              console.error("Bookmarklet copy failed.", error);
+            }
+          });
         });
-      });
+      }
+
+      render(initialTools);
+
+      fetch("/api/tools", { cache: "no-store" })
+        .then((response) => response.json())
+        .then((payload) => {
+          const liveById = new Map((payload.tools || []).map((tool) => [tool.id, tool]));
+          const merged = registry.map((tool) => {
+            const live = liveById.get(tool.id);
+            return live ? { ...tool, ...live } : { ...tool, status: "error", error: "Tool did not return metadata." };
+          });
+          render(merged);
+        })
+        .catch((error) => {
+          render(registry.map((tool) => ({
+            ...tool,
+            build: tool.type === "static" ? "static" : "unavailable",
+            bookmarkletHref: tool.bookmarkletHref || "",
+            status: tool.type === "static" ? "static" : "error",
+            error: tool.type === "static" ? "" : (error?.message || String(error)),
+          })));
+        });
     })();
   </script>
 </body>
 </html>
 `;
+}
 
-fs.writeFileSync(path.join(root, "dist", "index.html"), page);
-fs.writeFileSync(path.join(root, "dist", "favicon.svg"), faviconSvg);
+async function main() {
+  const tools = await loadTools();
+  const distRoot = path.join(root, "dist");
+  fs.mkdirSync(distRoot, { recursive: true });
+  fs.writeFileSync(path.join(distRoot, "index.html"), buildPage(tools));
+  fs.writeFileSync(path.join(distRoot, "favicon.svg"), faviconSvg);
+  fs.writeFileSync(path.join(distRoot, "_headers"), [
+    "/",
+    "  Cache-Control: no-store",
+    "",
+    "/api/*",
+    "  Cache-Control: no-store",
+    "",
+    "/*",
+    "  Cache-Control: no-store",
+    "",
+  ].join("\n"));
+  fs.writeFileSync(path.join(distRoot, "_redirects"), [
+    "/ /index.html 200",
+    "/* /index.html 200",
+    "",
+  ].join("\n"));
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

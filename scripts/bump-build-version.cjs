@@ -30,25 +30,13 @@ function nextBuildVersion(currentVersion, todayPrefix = getTodayPrefix()) {
   return `${todayPrefix}b${Number(match[2]) + 1}`;
 }
 
-function updateHubSource(nextVersion) {
-  const sourcePath = path.join(ROOT, "build-hub.js");
-  const source = fs.readFileSync(sourcePath, "utf8");
-  const updated = source.replace(/Hub build \d{6}b\d+/g, `Hub build ${nextVersion}`);
-  if (updated !== source) {
-    fs.writeFileSync(sourcePath, updated);
-    return 1;
-  }
-  return 0;
-}
-
 function main() {
   const pkg = readJson(PACKAGE_JSON);
   const previousVersion = pkg.version;
   const nextVersion = nextBuildVersion(previousVersion);
   pkg.version = nextVersion;
   writeJson(PACKAGE_JSON, pkg);
-  const changedSources = updateHubSource(nextVersion);
-  console.log(`${pkg.name || "app"} build version: ${previousVersion} -> ${nextVersion} (${changedSources} source file(s))`);
+  console.log(`${pkg.name || "app"} build version: ${previousVersion} -> ${nextVersion}`);
 }
 
 main();

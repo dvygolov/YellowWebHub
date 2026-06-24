@@ -4,8 +4,8 @@
 
 - Build versions use `DDMMYYbN`, based on the local build date.
 - `npm run build` runs `scripts/bump-build-version.cjs` before packaging. If the current version date is today, it increments only `bN`; otherwise it resets to today's date with `b1`.
-- Do not manually keep old build dates in `package.json` or `build-hub.js`; release builds update them together.
-- Rebuild the hub after rebuilding any bookmarklet tool, because it reads each tool's local `dist/index.html` and embeds the current bookmarklet/build labels.
+- Do not manually keep old build dates in `package.json`; release builds update them automatically.
+- The hub must not depend on sibling repos' local `dist/` folders at build time. It reads live tool metadata through its own `/api/tools` endpoint.
 
 ## Hygiene
 

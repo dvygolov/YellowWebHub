@@ -6,7 +6,7 @@
   "scripts": {
     "bump:build": "node scripts/bump-build-version.cjs",
     "prebuild": "npm run bump:build",
-    "check": "node --check noop-check.js && node --check build-hub.js",
+    "check": "node --check noop-check.js && node --check build-hub.js && node --check tool-registry.mjs",
     "build": "node build-hub.js",
     "deploy": "npx wrangler pages deploy ./dist --project-name=yellowweb --branch=main --commit-dirty=true"
   },
