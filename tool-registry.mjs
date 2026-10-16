@@ -50,6 +50,16 @@ export const tools = [
     description: "Copy content live from one Facebook Page to another, create chronology dates, and clean Page content.",
   },
   {
+    id: "fbtargetingmanager",
+    type: "live",
+    title: "FB Targeting Manager",
+    shortName: "Targeting",
+    landingUrl: "https://fbtargetingmanager.pages.dev/",
+    sourceUrl: "https://github.com/dvygolov/FBTargetingManager",
+    toolMetaUrl: "https://fbtargetingmanager.pages.dev/targeting/latest/tool-meta.json",
+    description: "Account-level age, geo and placement restrictions across all ad accounts, applied in bulk from a single panel.",
+  },
+  {
     id: "fbautoscroll",
     type: "live",
     title: "FB Auto Scroll",
